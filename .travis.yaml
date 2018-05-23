@@ -1,0 +1,25 @@
+language: generic
+sudo: false
+dist: trusty
+branches:
+  only:
+  - master
+addons:
+  apt:
+    packages:
+    - curl
+    - dpkg-deb
+script: ./build
+# deploy:
+#   provider: pages
+#   local-dir: _site
+#   target-branch: master
+#   skip-cleanup: true
+#   github-token: "$GITHUB_TOKEN"
+#   keep-history: true
+#   email: evt@rit.edu
+#   name: evtbot
+#   verbose: true
+#   on:
+#     branch:
+#     - develop
