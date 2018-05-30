@@ -15,7 +15,7 @@ script:
 deploy:
   provider: releases
   file_glob: true
-  file: firefox_*_amd64.deb
+  file: firefoxdev_*_amd64.deb
   skip_cleanup: true
   api_key: "$GITHUB_TOKEN"
   verbose: true
