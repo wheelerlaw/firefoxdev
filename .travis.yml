@@ -8,16 +8,16 @@ addons:
   apt:
     packages:
       - curl
+      - gettext
 script: 
   - ./build
   - sudo ./build install
-# deploy:
-#   provider: releases
-#   file_glob: true
-#   file: firefox_*_amd64.deb
-#   skip_cleanup: true
-#   api_key: "$GITHUB_TOKEN"
-#   verbose: true
-#   on:
-#     branch:
-#     - develop
+deploy:
+  provider: releases
+  file_glob: true
+  file: firefox_*_amd64.deb
+  skip_cleanup: true
+  api_key: "$GITHUB_TOKEN"
+  verbose: true
+  on:
+    tags: true
