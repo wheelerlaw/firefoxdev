@@ -8,7 +8,7 @@ clean)
 
 install)
     dpkg -i firefox_*_amd64.deb
-
+    ;;
 *)
     download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
     version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
