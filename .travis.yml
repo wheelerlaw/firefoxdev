@@ -12,14 +12,11 @@ script:
   - ./build
   - sudo ./build install
 # deploy:
-#   provider: pages
-#   local-dir: _site
-#   target-branch: master
-#   skip-cleanup: true
-#   github-token: "$GITHUB_TOKEN"
-#   keep-history: true
-#   email: evt@rit.edu
-#   name: evtbot
+#   provider: releases
+#   file_glob: true
+#   file: firefox_*_amd64.deb
+#   skip_cleanup: true
+#   api_key: "$GITHUB_TOKEN"
 #   verbose: true
 #   on:
 #     branch:
