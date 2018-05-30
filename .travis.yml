@@ -10,7 +10,7 @@ addons:
       - curl
 script: 
   - ./build
-  - ./build install
+  - sudo ./build install
 # deploy:
 #   provider: pages
 #   local-dir: _site
