@@ -8,7 +8,6 @@ addons:
   apt:
     packages:
       - curl
-      - dpkg-deb
 script: ./build
 # deploy:
 #   provider: pages
