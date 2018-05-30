@@ -8,7 +8,9 @@ addons:
   apt:
     packages:
       - curl
-script: ./build
+script: 
+  - ./build
+  - ./build install
 # deploy:
 #   provider: pages
 #   local-dir: _site
