@@ -5,6 +5,7 @@ case $1 in
 clean)
     rm -rf out
     rm -f *.deb
+    rm -rf firefoxdev
     ;;
 
 install)
@@ -12,21 +13,24 @@ install)
     ;;
 *)
     version=`cat data.yaml | yq .version -r`
-    download_link=`cat data.yaml | yq .link -r`
+    download_link="`cat data.yaml | yq .link -r`"
     echo "Version: $version"
-
-    which git
-    git status
-    git remote
-    git remote get-url origin
-    exit
 
     if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
         upstream_download_link=$(curl -fsSI "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tr -d '\r' | sed -En 's/^Location: (.*)/\1/p')
         upstream_version=$(echo $upstream_download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+        echo "Upstream version: $upstream_version"
         if [ "$upstream_version" != "$version" ]; then
+            git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/firefoxdev.git"
+            cd firefoxdev
+            git config user.name "Wheeler Law"
+            git config user.email "whelderwheels613@gmail.com"
             echo "link: '$upstream_download_link'" > data.yaml
             echo "version: $version" >> data.yaml
+            git add -A
+            git commit -m "Auto update to $version"
+            git tag -a -m "Auto update to $version" $version
+            git push --tags
         fi
         exit
     fi
