@@ -9,13 +9,9 @@ addons:
     packages:
       - curl
       - gettext
-      # - libdbus-1-3
-      # - libfontconfig1
-      # - libstdc++6
-# install:
-  # - sudo service postgresql stop
-  # - sudo apt-get update && sudo apt-get upgrade -y
-  # - sudo apt-get update && sudo apt-get install libdbus-1-3
+
+env:
+  secure: "nyJ+M7ggAnE2wMqzbw1Mi+aUyeCN7Fz/qKWMTmcer+WPGVG5MH1S3twaOzUK07VNx2M3iEaapLzgmSgbGpwtJoXxslzfKrh0Q3PRZbmHX3dXWfZ8b0AaP1xYCtJyLw9TnuwKLcjMSTbsYRV/TumFTJ6on1k0NIcPruPvK2tiOU7fqB0X/vGJsE08Z0pYy83ySITHT9FCfSsL8QZMF0Ua2olLixwMyhLgiHqLEvoS1lt1i1VUjNwbaBdi1Cb35lWAUuohrXFnyYAs/4eG1ygRlTLvkheIPFctJ5dUe7uvWagHp1d++HhBNh9SeEl4/S0bR/ObJS/Ycd2w/rY4LRRAFvCM11PkSq6ErbDL+RxSPqr6+shjKXKVyxdI0Welt3TSKLEvS9+HkYghY1IH7pMM3pQzWgCu4zh0Umnk6aiL4y/z2kVyMlZvwPRYG9ot2s69wYQFHaj7LMawVO8S2QClBXeb65C0f7bi2/N47KcAsQBpJhZvwv0qaRDR55xgYpsa3WE+3EKY+mkrdBI9mrfQHzDTBRHqLfJaDG1ZOexZymWNs3LFWK9HRYPXHA+5uGNpvyqJyMuoR5KbZtVyVzv41EJeqF3VNo5dpzV+uDHdrr77fE4srcWPXTNdEhesAruC0UVq519/5LDKvvX/LFKLDmnqi3a9Oapa6emYPMLtuyk="
 script: 
   - ./build
   - sudo ./build install
