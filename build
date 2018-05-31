@@ -11,11 +11,22 @@ install)
     dpkg -i firefoxdev_*_amd64.deb
     ;;
 *)
-    # download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
-    # version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
-    download_link=`cat data.yaml | grep link | sed 's|link: "\(.*\)"|\1|'`
-    version=`cat data.yaml | grep version | sed 's|version: \(.*\)|\1|'`
+    version=`cat data.yaml | yq .version -r`
+    download_link=`cat data.yaml | yq .link -r`
     echo "Version: $version"
+
+    which git
+    git status
+
+    if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
+        upstream_download_link=$(curl -fsSI "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tr -d '\r' | sed -En 's/^Location: (.*)/\1/p')
+        upstream_version=$(echo $upstream_download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+        if [ "$upstream_version" != "$version" ]; then
+            echo "link: '$upstream_download_link'" > data.yaml
+            echo "version: $version" >> data.yaml
+        fi
+        exit
+    fi
 
     #### Place the binary files in the proper locations
     mkdir -p out/opt

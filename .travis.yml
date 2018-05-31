@@ -9,6 +9,11 @@ addons:
     packages:
     - curl
     - gettext
+    - python3-pip
+    - jq
+    - git
+install:
+  - pip3 install yq
 script:
 - "./build"
 - sudo ./build install
