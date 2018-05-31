@@ -7,20 +7,19 @@ branches:
 addons:
   apt:
     packages:
-      - curl
-      - gettext
-script: 
-  - ./build
-  - sudo ./build install
+    - curl
+    - gettext
+script:
+- "./build"
+- sudo ./build install
 deploy:
   provider: releases
   file_glob: true
   file: firefoxdev_*_amd64.deb
   skip_cleanup: true
   api_key:
-    secure: "nyJ+M7ggAnE2wMqzbw1Mi+aUyeCN7Fz/qKWMTmcer+WPGVG5MH1S3twaOzUK07VNx2M3iEaapLzgmSgbGpwtJoXxslzfKrh0Q3PRZbmHX3dXWfZ8b0AaP1xYCtJyLw9TnuwKLcjMSTbsYRV/TumFTJ6on1k0NIcPruPvK2tiOU7fqB0X/vGJsE08Z0pYy83ySITHT9FCfSsL8QZMF0Ua2olLixwMyhLgiHqLEvoS1lt1i1VUjNwbaBdi1Cb35lWAUuohrXFnyYAs/4eG1ygRlTLvkheIPFctJ5dUe7uvWagHp1d++HhBNh9SeEl4/S0bR/ObJS/Ycd2w/rY4LRRAFvCM11PkSq6ErbDL+RxSPqr6+shjKXKVyxdI0Welt3TSKLEvS9+HkYghY1IH7pMM3pQzWgCu4zh0Umnk6aiL4y/z2kVyMlZvwPRYG9ot2s69wYQFHaj7LMawVO8S2QClBXeb65C0f7bi2/N47KcAsQBpJhZvwv0qaRDR55xgYpsa3WE+3EKY+mkrdBI9mrfQHzDTBRHqLfJaDG1ZOexZymWNs3LFWK9HRYPXHA+5uGNpvyqJyMuoR5KbZtVyVzv41EJeqF3VNo5dpzV+uDHdrr77fE4srcWPXTNdEhesAruC0UVq519/5LDKvvX/LFKLDmnqi3a9Oapa6emYPMLtuyk="
+    secure: hG0OxEVDFBXJP4d+U0Zwm6a8lp3Qa0PRlrvbLyDDWFHg5lJ/Z0fCCYXgU+VxEfYL/F/7uIz2pKoV6d5+Na6vf4DvwthRzhGwnOf6OR2U6880xr2qmXoXn2365lR0BQDN3LMcnkPs53KdLY1ymqwuc3EAX8EWKLocUpRCWv7VMHmjU/xfiFS5Joq0MiQh1yoPnMgaRrPtcnhEunLNHzKSJXthKbZu6PTwD7ZKrW+0CEWUBNoCol8BbY9bPXMG+n1HrV1xwTmQZ9WVaaY0/63AsI756ltAt2K9XTcRo1DYtPQ9ZDMlbZ6GDm17SsGUpTfA57DUEzVPJbTP7Qsi9ml1/VjhY5lAKVq7fO4amKyfKCvr/EhscDlXdJoSHk8jKlQa9cl0mqSXGPobdB8aL4ozfB9fdvKpD2/6QncLPGXcWpEJf867I42OvbYrEtJw/SDyc/U8sItSBs4hwFX2E2CYIMoXfdZLXaDmTJjHXP/HcfmVtvhJTueRvA6bxCQcZW9C8PwwrAJTVmSxTxYnV72QUtg5vBJA4DWsGOjRivVLoPzoL6J3rRZnvRTAhnZD7/atunkEhEz5alRyGU4zzWp3wmsQJlRg6r9SEeRJ6aZPDvY170CHrnWEiW3WUoKlwynKNZYw1PFELNSVmEVe/2y4VyCg/LdJzBLne7dlCRSSn5E=
   verbose: true
   on:
     branch:
-      - master
-    # tags: true
+    - master
