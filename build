@@ -16,6 +16,8 @@ install)
     download_link="`cat data.yaml | yq .link -r`"
     echo "Version: $version"
 
+    #### If we're running in a cron job, check the upstream version against the repo version. If a newer version is available, then update to that
+    #### version, and tag a new commit. Travis will pick up the tagged commit and build the deb and deploy it. 
     if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
         upstream_download_link=$(curl -fsSI "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tr -d '\r' | sed -En 's/^Location: (.*)/\1/p')
         upstream_version=$(echo $upstream_download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
