@@ -13,7 +13,7 @@ addons:
     - jq
     - git
 install:
-  - pip3 install yq
+  - sudo pip3 install yq
 script:
 - "./build"
 - sudo ./build install
