@@ -9,6 +9,8 @@ addons:
     packages:
       - curl
       - gettext
+install:
+  - apt-get update && apt-get upgrade -y
 script: 
   - ./build
   - sudo ./build install
