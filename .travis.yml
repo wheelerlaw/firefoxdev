@@ -10,7 +10,7 @@ addons:
       - curl
       - gettext
 install:
-  - apt-get update && apt-get upgrade -y
+  - sudo apt-get update && sudo apt-get upgrade -y
 script: 
   - ./build
   - sudo ./build install
