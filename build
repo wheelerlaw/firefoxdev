@@ -26,10 +26,10 @@ install)
             git config user.name "Wheeler Law"
             git config user.email "whelderwheels613@gmail.com"
             echo "link: '$upstream_download_link'" > data.yaml
-            echo "version: $version" >> data.yaml
+            echo "version: $upstream_version" >> data.yaml
             git add -A
-            git commit -m "Auto update to $version"
-            git tag -a -m "Auto update to $version" $version
+            git commit -m "Auto update to $upstream_version"
+            git tag -a -m "Auto update to $upstream_version" $upstream_version
             git push --tags
             git push 
         fi
