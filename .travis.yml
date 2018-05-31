@@ -9,9 +9,9 @@ addons:
     packages:
       - curl
       - gettext
-      - libdbus-1-3
-      - libfontconfig1
-      - libstdc++6
+      # - libdbus-1-3
+      # - libfontconfig1
+      # - libstdc++6
 # install:
   # - sudo service postgresql stop
   # - sudo apt-get update && sudo apt-get upgrade -y
