@@ -30,7 +30,7 @@ install)
             git add -A
             git commit -m "Auto update to $version"
             git tag -a -m "Auto update to $version" $version
-            git push --tags
+            git push --tags master
         fi
         exit
     fi
