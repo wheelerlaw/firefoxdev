@@ -18,6 +18,7 @@ install)
     which git
     git status
     git remote
+    git remote get-url origin
     exit
 
     if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
