@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import json, requests, re
+
+download_link = requests.get('https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US', allow_redirects=False).headers["Location"]
+version = re.search(r'.*/releases/([^/]*)/.*', download_link).group(1)
+
+
+print(download_link)
+print(version)
+
+
+# download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
+# version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+# echo "Upstream version: $version"
+
+
+# echo "Repo version: "
+
+#  64ff5297f8b74c2e8a1fc0fdf6bb6784395e6894

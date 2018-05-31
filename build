@@ -11,8 +11,10 @@ install)
     dpkg -i firefoxdev_*_amd64.deb
     ;;
 *)
-    download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
-    version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+    # download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
+    # version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+    download_link=`cat data.yaml | grep link | sed 's|link: "\(.*\)"|\1|'`
+    version=`cat data.yaml | grep version | sed 's|version: \(.*\)|\1|'`
     echo "Version: $version"
 
     #### Place the binary files in the proper locations
