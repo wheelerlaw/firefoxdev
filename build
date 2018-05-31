@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 case $1 in
 clean)
@@ -6,6 +7,9 @@ clean)
     rm -f *.deb
     ;;
 
+install)
+    dpkg -i firefoxdev_*_amd64.deb
+    ;;
 *)
     download_link=$(curl -fsS "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | sed 's/.*href="\(.*\)".*/\1/')
     version=$(echo $download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
@@ -14,6 +18,7 @@ clean)
     #### Place the binary files in the proper locations
     mkdir -p out/opt
     curl -fsSL "$download_link" | tar xjC out/opt/
+    rm -rf out/opt/firefoxdev
     mv out/opt/firefox out/opt/firefoxdev
 
     #### Create the control file from the template
@@ -27,13 +32,13 @@ clean)
 
     #### Create the linked binary
     mkdir -p out/usr/local/bin
-    ln -s ../../../opt/firefoxdev/firefox out/usr/local/bin/firefoxdev
+    ln -sf ../../../opt/firefoxdev/firefox out/usr/local/bin/firefoxdev
 
     #### Create the links to the icons
     for i in $(ls out/opt/firefoxdev/browser/chrome/icons/default); do
         resolution=$(echo $i | sed 's|default\([0-9]*\)\.png|\1|')
         mkdir -p out/usr/share/icons/hicolor/${resolution}x${resolution}/apps/
-        ln -s ../../../../../../opt/firefoxdev/browser/chrome/icons/default/default${resolution}.png out/usr/share/icons/hicolor/${resolution}x${resolution}/apps/firefoxdev.png
+        ln -sf ../../../../../../opt/firefoxdev/browser/chrome/icons/default/default${resolution}.png out/usr/share/icons/hicolor/${resolution}x${resolution}/apps/firefoxdev.png
     done
 
     #### Build the package itself
