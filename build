@@ -1,6 +1,33 @@
 #!/usr/bin/env bash
 set -ex
 
+version=`cat data.yaml | yq .version -r`
+download_link="`cat data.yaml | yq .link -r`"
+echo "Version: $version"
+
+#### If we're running in a cron job, check the upstream version against the repo version. If a newer version is available, then update to that
+#### version, and tag a new commit. Travis will pick up the tagged commit and build the deb and deploy it. 
+if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
+    upstream_download_link=$(curl -fsSI "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tr -d '\r' | sed -En 's/^Location: (.*)/\1/p')
+    upstream_version=$(echo $upstream_download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
+    echo "Upstream version: $upstream_version"
+    if [ "$upstream_version" != "$version" ]; then
+        git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/firefoxdev.git"
+        cd firefoxdev
+        git config user.name "Wheeler Law"
+        git config user.email "whelderwheels613@gmail.com"
+        echo "link: '$upstream_download_link'" > data.yaml
+        echo "version: $upstream_version" >> data.yaml
+        git add -A
+        git commit -m "Auto update to $upstream_version"
+        git tag -a -m "Auto update to $upstream_version" $upstream_version
+        git push --tags
+        git push 
+    fi
+    exit
+fi
+
+#### If we're not running in in a cron job, check to see what command was given to the script 
 case $1 in
 clean)
     rm -rf out
@@ -12,32 +39,6 @@ install)
     dpkg -i firefoxdev_*_amd64.deb
     ;;
 *)
-    version=`cat data.yaml | yq .version -r`
-    download_link="`cat data.yaml | yq .link -r`"
-    echo "Version: $version"
-
-    #### If we're running in a cron job, check the upstream version against the repo version. If a newer version is available, then update to that
-    #### version, and tag a new commit. Travis will pick up the tagged commit and build the deb and deploy it. 
-    if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
-        upstream_download_link=$(curl -fsSI "https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US" | tr -d '\r' | sed -En 's/^Location: (.*)/\1/p')
-        upstream_version=$(echo $upstream_download_link | sed 's/.*\/releases\/\([^\/]*\)\/.*/\1/')
-        echo "Upstream version: $upstream_version"
-        if [ "$upstream_version" != "$version" ]; then
-            git clone "https://wheelerlaw:$GITHUB_TOKEN@github.com/wheelerlaw/firefoxdev.git"
-            cd firefoxdev
-            git config user.name "Wheeler Law"
-            git config user.email "whelderwheels613@gmail.com"
-            echo "link: '$upstream_download_link'" > data.yaml
-            echo "version: $upstream_version" >> data.yaml
-            git add -A
-            git commit -m "Auto update to $upstream_version"
-            git tag -a -m "Auto update to $upstream_version" $upstream_version
-            git push --tags
-            git push 
-        fi
-        exit
-    fi
-
     #### Place the binary files in the proper locations
     mkdir -p out/opt
     curl -fsSL "$download_link" | tar xjC out/opt/

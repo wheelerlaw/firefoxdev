@@ -4,6 +4,8 @@ dist: trusty
 branches:
   only:
   - master
+  # Assume that the version numbers begin with a number and that most feature branches won't
+  - /^[0-9].*$/
 addons:
   apt:
     packages:
