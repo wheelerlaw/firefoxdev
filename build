@@ -21,8 +21,7 @@ if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then
         git add -A
         git commit -m "Auto update to $upstream_version"
         git tag -a -m "Auto update to $upstream_version" $upstream_version
-        git push --tags
-        git push 
+        git push --follow-tags
     fi
     exit
 fi
