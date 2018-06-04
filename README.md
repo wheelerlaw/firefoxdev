@@ -6,7 +6,7 @@ A simple .deb wrapper around the binary distribution for Firefox Developer Editi
 
 ### Installation
 
-To use this, download the `.deb` from the Releases section of this repo, or run the following commands:
+To use this, download the `.deb` from the Releases section of this repo, or run the following commands (assuming you have `jq` installed):
 
 ```
 curl -fsSL "https://api.github.com/repos/wheelerlaw/firefoxdev/releases/latest" | jq '.assets[0].browser_download_url' | xargs curl -OL
